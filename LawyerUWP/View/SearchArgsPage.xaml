@@ -1,0 +1,110 @@
+﻿<Page
+    x:Class="LawyerUWP.View.SearchArgsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LawyerUWP.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:constant="using:LawyerUWP.Constant"
+    xmlns:data="using:LawyerUWP.Model"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <RelativePanel Grid.Row="0" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Padding="0,9">
+            <Button x:Name="tb" Content="&#xE700;" FontFamily="Segoe MDL2 Assets" FontSize="24" RelativePanel.AlignVerticalCenterWithPanel="True" Click="tb_Click" Visibility="{Binding BtnVisibility,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}"/>
+            <TextBlock Text="辩词查询" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="tb"
+                       FontSize="24" FontFamily="微软雅黑" Padding="20,0,0,0"/>
+        </RelativePanel>
+        <Pivot Grid.Row="1" x:Name="pivotArgs">
+            <PivotItem Header="按姓名查询" Margin="0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                        <TextBlock Text="律师姓名" Style="{StaticResource SubtitleTextBlockStyle}" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox Text="{Binding Name,Mode=TwoWay}" Margin="10,0" Width="150"/>
+                        <Button Content="查询" Command="{Binding SearchCommand}">
+                            <Button.CommandParameter>
+                                <constant:Method>ArgsByName</constant:Method>
+                            </Button.CommandParameter>
+                        </Button>
+                    </StackPanel>
+                    <ListView Grid.Row="1" Padding="10" SelectionMode="None" IsItemClickEnabled="True" ItemClick="ListView_ItemClick" ItemsSource="{Binding ArgsNameList}" Margin="0,20">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="data:Args">
+                                <Grid Padding="5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="姓名：" Style="{StaticResource BodyTextBlockStyle}"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{x:Bind lawer}" Style="{StaticResource BodyTextBlockStyle}"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="题目：" Style="{StaticResource BodyTextBlockStyle}"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{x:Bind title}" Style="{StaticResource BodyTextBlockStyle}"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="时间：" Style="{StaticResource BodyTextBlockStyle}"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{x:Bind pdate}" Style="{StaticResource BodyTextBlockStyle}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </PivotItem>
+            <PivotItem Header="按关键词查询" Margin="0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                        <TextBlock Text="关键词" Style="{StaticResource TitleTextBlockStyle}" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                        <TextBox Text="{Binding Tags,Mode=TwoWay}" Margin="10,0" Width="150"/>
+                        <Button Content="查询" Command="{Binding SearchCommand}">
+                            <Button.CommandParameter>
+                                <constant:Method>ArgsByTerm</constant:Method>
+                            </Button.CommandParameter>
+                        </Button>
+                    </StackPanel>
+                    <ListView Grid.Row="1" Padding="10" SelectionMode="None" IsItemClickEnabled="True" ItemClick="ListView_ItemClick" ItemsSource="{Binding ArgsTagList}" Margin="0,20">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="data:Args">
+                                <Grid Padding="5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="姓名：" Style="{StaticResource BodyTextBlockStyle}"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{x:Bind lawer}" Style="{StaticResource BodyTextBlockStyle}"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="题目：" Style="{StaticResource BodyTextBlockStyle}"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{x:Bind title}" Style="{StaticResource BodyTextBlockStyle}"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="时间：" Style="{StaticResource BodyTextBlockStyle}"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{x:Bind pdate}" Style="{StaticResource BodyTextBlockStyle}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </PivotItem>
+        </Pivot>
+        <ProgressRing Grid.Row="1"
+                                Width="100"
+                                Height="100"
+                                IsActive="True"
+                                Visibility="{Binding ProgressRingVisibility}"/>
+    </Grid>
+</Page>

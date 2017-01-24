@@ -1,0 +1,2 @@
+MainPackage=E:\UWP\LawyerUWP\LawyerUWP\bin\x64\Release\LawyerUWP_2.0.10.0_x64.appx
+SymbolPackage=E:\UWP\LawyerUWP\LawyerUWP\AppPackages\LawyerUWP_2.0.10.0_Test\LawyerUWP_2.0.10.0_x64.appxsym

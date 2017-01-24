@@ -1,0 +1,6 @@
+MainPackage=E:\UWP\LawyerUWP\LawyerUWP\bin\ARM\Release\Upload\LawyerUWP_2.0.10.0_ARM.appx
+SymbolPackage=E:\UWP\LawyerUWP\LawyerUWP\AppPackages\LawyerUWP_2.0.10.0\LawyerUWP_2.0.10.0_ARM.appxsym
+ResourcePack=E:\UWP\LawyerUWP\LawyerUWP\_scale-100.appx
+ResourcePack=E:\UWP\LawyerUWP\LawyerUWP\_scale-125.appx
+ResourcePack=E:\UWP\LawyerUWP\LawyerUWP\_scale-150.appx
+ResourcePack=E:\UWP\LawyerUWP\LawyerUWP\_scale-400.appx

@@ -1,0 +1,68 @@
+﻿<Page
+    x:Class="LawyerUWP.View.HomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LawyerUWP.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:LawyerUWP.Model"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <RelativePanel Grid.Row="0" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Padding="0,9">
+            <Button x:Name="tb" Content="&#xE700;" FontFamily="Segoe MDL2 Assets" FontSize="24" RelativePanel.AlignVerticalCenterWithPanel="True" Click="tb_Click" Visibility="{Binding BtnVisibility,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}"/>
+            <TextBlock Text="首页" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.RightOf="tb"
+                       FontSize="24" FontFamily="微软雅黑" Padding="20,0,0,0"/>
+        </RelativePanel>
+        <ListView Grid.Row="1" ItemsSource="{Binding LawyerList,Mode=TwoWay}" Padding="10" SelectionMode="None" IsItemClickEnabled="True"
+                              ItemClick="ListView_ItemClick" Margin="0,20" MinWidth="500">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="data:Lawyer">
+                    <Grid Padding="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Padding="5" VerticalAlignment="Center">
+                            <Ellipse Width="100" Height="100">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="{x:Bind img}"/>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                        </StackPanel>
+                        <Grid Grid.Column="1" Padding="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Grid.Row="0" Text="姓名：" Style="{StaticResource  BodyTextBlockStyle}"/>
+                            <TextBlock Grid.Column="1" Grid.Row="0" Text="{x:Bind name}" Style="{StaticResource BodyTextBlockStyle}"/>
+                            <TextBlock Grid.Column="0" Grid.Row="1" Text="手机：" Style="{StaticResource BodyTextBlockStyle}"/>
+                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{x:Bind mobile}" Style="{StaticResource BodyTextBlockStyle}"/>
+                            <TextBlock Grid.Column="0" Grid.Row="2" Text="省市：" Style="{StaticResource BodyTextBlockStyle}"/>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" Margin="12,0,0,0">
+                                <TextBlock Text="{x:Bind province}" Style="{StaticResource BodyTextBlockStyle}" Margin="0,0,0,15"/>
+                                <TextBlock Text="{x:Bind city}" Style="{StaticResource BodyTextBlockStyle}" Margin="0,0,0,15"/>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ProgressRing Grid.Row="1" x:Name="pr_waiting"
+                                Width="100"
+                                Height="100"
+                                IsActive="True"
+                                Visibility="{Binding ProgressRingVisibility,UpdateSourceTrigger=PropertyChanged}"/>
+    </Grid>
+</Page>
